@@ -1,9 +1,3 @@
-import processing.video.*;
-import jp.nyatla.nyar4psg.*;
-
-Capture cam;
-MultiMarker nya;
-
 void icons_setup() {
   
   println(MultiMarker.VERSION);
@@ -16,39 +10,6 @@ void icons_setup() {
  // nya.addNyIdMarker(0,80);                      // id=2
   //nya.addNyIdMarker(1,80);                      // id=3
   cam.start();
-}
-
-void draw_icons() {
-  
-  if (cam.available() != true) {
-    return;
-  }
-  cam.read();
-  nya.detect(cam);
-  background(0);
-  nya.drawBackground(cam); 
-
-// wyswietlanie obrazkow na znacznikach
-  for (int i = 0; i < 4; i++) {
-    if (!nya.isExist(i)) {
-      continue;
-    }
-    nya.beginTransform(i);
-    
-    if (i == 0 && icon_set == 1) {
-     drawMilosc();
-  } else if (i == 1 && icon_set == 1) {
-     drawRadosc();
-    } else if (i == 0 && icon_set == 2) {
-     drawNiepokoj();
-  } else if (i == 1 && icon_set == 2) {
-     drawSmutek();
-  }
-    
-    nya.endTransform();
-}
-  //fill(50);
-  //rect(width - 200, 0, 200, height);
 }
 
 void drawMilosc() { //serce
