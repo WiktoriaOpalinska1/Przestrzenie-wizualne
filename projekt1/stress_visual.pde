@@ -1,6 +1,7 @@
 import jp.nyatla.nyar4psg.*;
 import jp.nyatla.nyar4psg.utils.*;
 import processing.video.*;
+import gab.opencv.*;
 
 // Size of each cell in the grid
 int cellSize = 20;
@@ -18,6 +19,10 @@ float pulseIntensity = 0;
 float pulseSpeed = 0.1;
 boolean increasing = true;
 
+// Edge detection variables
+OpenCV opencv;
+PImage edgeImage;
+
 void setup() {
   size(640, 480, P3D);
   frameRate(30);
@@ -31,7 +36,10 @@ void setup() {
 
   // Initialize NyAR4psg
   nya = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
-  nya.addARMarker("patt.hiro", 80); // Add a marker pattern to detect
+  nya.addARMarker("patt.hiro", 80);
+ 
+  // Initialize OpenCV
+  opencv = new OpenCV(this, width, height);
 }
 
 void draw() {
@@ -41,7 +49,7 @@ void draw() {
 
   // Update the AR marker detection
   nya.detect(video);
-  markerDetected = nya.isExist(0); // Check if the marker is detected
+  markerDetected = nya.isExist(0);
 
   // Update pulse intensity
   if (markerDetected) {
@@ -58,17 +66,17 @@ void draw() {
         increasing = true;
       }
     }
-  } else {
-    pulseIntensity = 0;
-  }
-
-  // Display the webcam feed with effect
-  if (markerDetected) {
+   
+    // Process edge detection when marker is detected
+    opencv.loadImage(video);
+    opencv.findCannyEdges(20, 75); // Detect edges (adjust thresholds as needed)
+    edgeImage = opencv.getSnapshot(); // Get edge image
+   
     // Create disturbing red pulse effect
     video.loadPixels();
     PImage redImage = createImage(video.width, video.height, RGB);
     redImage.loadPixels();
-    
+   
     for (int i = 0; i < video.pixels.length; i++) {
       color c = video.pixels[i];
       // Calculate grayscale value
@@ -80,17 +88,21 @@ void draw() {
       redImage.pixels[i] = color(r, g, b);
     }
     redImage.updatePixels();
-    
+   
     // Add some distortion
     pushMatrix();
     translate(width/2, height/2);
     scale(1.0 + pulseIntensity * 0.05);
     translate(-width/2, -height/2);
+   
+    // Combine red image with edge glow
     image(redImage, 0, 0);
+    blend(edgeImage, 0, 0, width, height, 0, 0, width, height, ADD); // Glowing edges
+   
     popMatrix();
-    
+   
     // Add flickering red overlay
-    if (frameCount % 5 == 0) { // Random flicker
+    if (frameCount % 5 == 0) {
       fill(255, 0, 0, 30 * pulseIntensity);
       rect(0, 0, width, height);
     }
