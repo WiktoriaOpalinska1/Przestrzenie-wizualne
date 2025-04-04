@@ -1,9 +1,21 @@
+/*
+  Osoba odpowiedzialna: Wiktoria.
+  
+  Co znajduje się w tym pliku:
+  - Ustawienia dla przycisków zmieniających tryb.
+  - Obsługa eventów (naciśnięcie przycisków).
+  
+  Wykorzystane biblioteki:
+  - ControlP5 - jedna z podstawowych bibliotek do tworzenia GUI w Processingu
+*/
+
+
 void GUI_setup(){
-cp5 = new ControlP5(this);
-  int buttonWidth1 = 150;
-  int buttonHeight = 35;
-  int startX = width/2;
-  int startY = height - buttonHeight - 20;
+  cp5 = new ControlP5(this);
+    int buttonWidth1 = 150;
+    int buttonHeight = 35;
+    int startX = width/2;
+    int startY = height - buttonHeight - 20;
   
   b1 = (Button) cp5.addButton("Stan pozytywny")
      .setPosition(startX - 180, startY)
