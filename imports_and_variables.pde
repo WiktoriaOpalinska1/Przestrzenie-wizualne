@@ -1,17 +1,23 @@
+/*
+  Co znajduje się w tym pliku:
+  - importy bibliotek
+  - inicjalizacje części zmiennych
+  - klasę serce
+*/
+
 import controlP5.*;
 import jp.nyatla.nyar4psg.*;
 import jp.nyatla.nyar4psg.utils.*;
 import processing.video.*;
-import processing.video.*;
 import jp.nyatla.nyar4psg.*;
 import processing.sound.*;
+import gab.opencv.*;
 
 //GUI
 ControlP5 cp5;
 int bgColor;
 int icon_set = 1;
 Button b1, b2;
-
 
 // Visual
 Capture cam;
@@ -75,6 +81,14 @@ class Heart {
   }
 }
 
+// Sound
+SoundFile loveSound, sunshineSound, anxietySound, sadnessSound;
+SinOsc sunOsc, loveOsc, anxietyOsc;
+WhiteNoise noise;
+
+// OpenCV
+OpenCV opencv;
+PImage edgeImage;
 
 /* Sound attrubutions:
 Soft Piano Loop #2 by ispeakwaves -- https://freesound.org/s/384935/ -- License: Attribution 4.0
