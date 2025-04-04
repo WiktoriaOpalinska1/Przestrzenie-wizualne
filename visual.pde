@@ -69,6 +69,7 @@ void apply_effects() {
         applyLoveEffect();
       }
       if (nya.isExist(1)) {
+        sunEffect = 1.0;
         applySunshineEffect();
       }
       break;
@@ -77,6 +78,7 @@ void apply_effects() {
         applyAnxietyEffect();
       }
       if (nya.isExist(1)) {
+        bwEffect = 1;
         applyBlackWhiteEffect();
       }
       break;
