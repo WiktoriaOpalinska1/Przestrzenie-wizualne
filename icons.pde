@@ -37,9 +37,9 @@ void drawMilosc() {
 
 // Funkcja odpowiedzialna za item do trybu smutek - kształt chmury z nałożonych sfer
 void drawSmutek() { 
-   stroke(63, 67, 69);
-  fill(54, 55, 56);     
-  sphereDetail(16);
+  stroke(155, 175, 209);
+  fill(138, 159, 194);     
+  sphere(16);
 
   pushMatrix();
     sphere(40);
