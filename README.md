@@ -1,2 +1,4 @@
 # Przestrzenie-wizualne
-Technologie kognitywne - Projekt 1. Temat: Przestrzenie Wizualne.
+
+Projekt grupowy w ramach zajęć z Technologii Kognitywnych na UJ.
+Grupa realizowała temat: Przestrzenie Wizualne. 
